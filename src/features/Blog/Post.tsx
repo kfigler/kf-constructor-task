@@ -1,29 +1,20 @@
 import React from 'react';
-import { posts } from '../../app/api/examplePosts';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import PostPreview from './PostPreview';
 import Comment from './comments/Comment';
+import { CommentInterface } from '../../app/store/posts/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/reducers/rootReducer';
 
-export interface PostProps {
-  title: string;
-  postedBy: string;
-  // TODO Consider converting this to javascript date type
-  postedOn: string;
-  imageURL: string;
-  lead: string;
-  id: string | number | undefined;
-}
-
-// TODO Consider if this should be actually here or in some common folder
 type TParams = { id: string };
 
 export default function Post({ match }: RouteComponentProps<TParams>) {
-  // TODO Set up redux and get state from there
-  const post = posts.find((post) => post.id === match.params.id);
+  const postId = match.params.id;
+  const post = useSelector((state: RootState) => state.post.posts.find((post) => post.id === postId));
+
   if (!post)
     return (
       <div>
@@ -33,14 +24,29 @@ export default function Post({ match }: RouteComponentProps<TParams>) {
         </Button>
       </div>
     );
-  const { content, comments, ...rest } = post;
+  const { content, comments, title, postedBy, postedOn, imageURL, lead, id } = post;
   return (
     <Container>
       <Row>
         <Col lg={8}>
-          <PostPreview {...rest} />
+          <div className="d-flex justify-content-between align-items-center">
+            <h1 className="mt-4">{title}</h1>
+            <Button as={Link} to={`/posts/edit/${id}`}>
+              EDIT
+            </Button>
+          </div>
+          <p className="lead">
+            by
+            <a href="/#"> {postedBy}</a>
+          </p>
+          <hr />
+          <p>{postedOn}</p>
+          <hr />
+          <img className="img-fluid rounded" src={imageURL} alt="" />
+          <hr />
+          <p className="lead">{lead}</p>
           <p>{content}</p>
-          {comments.map((comment, index) => (
+          {comments.map((comment: CommentInterface, index: number) => (
             <Comment key={`comment-${index}`} {...comment} />
           ))}
         </Col>

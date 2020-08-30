@@ -1,12 +1,11 @@
 import React from 'react';
-import ReplyComponent from './Reply';
-import { Reply } from '../../../app/types/types';
+import Reply from './Reply';
+import { CommentInterface } from '../../../app/store/posts/types';
 
-//
 interface CommentProps {
   text: string;
   userId: string;
-  replies: Reply[];
+  replies?: CommentInterface[];
 }
 
 export default function Comment({ text, userId, replies }: CommentProps) {
@@ -16,9 +15,7 @@ export default function Comment({ text, userId, replies }: CommentProps) {
       <div className="media-body">
         <h5 className="mt-0">{userId}</h5>
         {text}
-        {replies.map((reply, index) => (
-          <ReplyComponent key={`reply-${index}`} {...reply} />
-        ))}
+        {replies && replies.map((reply, index) => <Reply key={`reply-${index}`} {...reply} />)}
       </div>
     </div>
   );

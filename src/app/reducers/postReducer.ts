@@ -1,6 +1,6 @@
-import { PostInterface } from '../store/posts/types';
+import { PostInterface, PostActionTypes, PostState, UPDATE_POST } from '../store/posts/types';
 
-export const posts: PostInterface[] = [
+const posts: PostInterface[] = [
   {
     id: '1',
     title: "Noelle's epic post",
@@ -64,3 +64,19 @@ export const posts: PostInterface[] = [
     ],
   },
 ];
+
+const initialState: PostState = {
+  posts: posts,
+};
+
+export default function postReducer(state = initialState, { type, payload }: PostActionTypes): PostState {
+  switch (type) {
+    case UPDATE_POST:
+      return {
+        ...state,
+        posts: [payload, ...posts.filter((post) => post.id !== payload.id)],
+      };
+    default:
+      return state;
+  }
+}
