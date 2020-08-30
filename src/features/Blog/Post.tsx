@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 import Comment from './comments/Comment';
 import { CommentInterface } from '../../app/store/posts/types';
 import { useSelector } from 'react-redux';
@@ -24,11 +25,11 @@ export default function Post({ match }: RouteComponentProps<TParams>) {
         </Button>
       </div>
     );
-  const { content, comments, title, postedBy, postedOn, imageURL, lead, id } = post;
+  const { content, comments, title, postedBy, postedOn, tags, imageURL, lead, id } = post;
   return (
     <Container>
       <Row>
-        <Col lg={8}>
+        <Col md={{ span: 8, offset: 2 }}>
           <div className="d-flex justify-content-between align-items-center">
             <h1 className="mt-4">{title}</h1>
             <Button as={Link} to={`/posts/edit/${id}`}>
@@ -40,7 +41,16 @@ export default function Post({ match }: RouteComponentProps<TParams>) {
             <a href="/#"> {postedBy}</a>
           </p>
           <hr />
-          <p>{postedOn}</p>
+          <div className="d-flex justify-content-between align-items-top tag-container">
+            <p>{postedOn}</p>
+            <p>
+              {tags.map((tag, index) => (
+                <Badge key={`${tag}-${index}`} variant="primary">
+                  {tag}
+                </Badge>
+              ))}
+            </p>
+          </div>
           <hr />
           <img className="img-fluid rounded" src={imageURL} alt="" />
           <hr />

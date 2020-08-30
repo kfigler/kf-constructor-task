@@ -23,6 +23,7 @@ export interface PostInterface {
   title: string;
   postedBy: string;
   postedOn: string;
+  tags: string[];
   imageURL: string;
   lead: string;
   content: string;

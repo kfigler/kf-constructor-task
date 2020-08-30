@@ -1,11 +1,12 @@
 import { PostInterface } from '../store/posts/types';
 
-export const posts: PostInterface[] = [
+const posts: PostInterface[] = [
   {
     id: '1',
     title: "Noelle's epic post",
     postedBy: 'Noelle Bellefleur',
     postedOn: 'Posted on January 1, 2019 at 12:00 PM',
+    tags: ['story', 'lot', 'oufit'],
     imageURL: 'http://placehold.it/900x300',
     lead:
       'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?',
@@ -37,6 +38,7 @@ export const posts: PostInterface[] = [
     title: "Noelle's epic post2",
     postedBy: 'Noelle Bellefleur',
     postedOn: 'Posted on January 2, 2019 at 12:00 PM',
+    tags: ['mod'],
     imageURL: 'http://placehold.it/900x300',
     lead:
       'Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?',

@@ -26,6 +26,12 @@ export default function HomePage() {
           redux, react-redux - It was stated in the task description to use it. The only alternative I ever took a look
           at was MobX. The other alternative I have heard of is Flux.
         </li>
+        <li>
+          formik - I use formik to be able to edit the post entity. Redux-forms was pretty popular, but right now it is
+          not event recommended by its developer. React-final-forms is the new library of the developer, however Formik
+          is mentioned by the official react documentation as well. Popularity contest:
+          <a href="https://reactjs.org/docs/forms.html">Form libraries comparison</a>
+        </li>
       </ul>
     </div>
   );

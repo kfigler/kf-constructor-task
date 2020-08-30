@@ -1,1 +1,7 @@
+.tag-container p {
+  margin-bottom: 0;
+}
 
+.tag-container p .badge {
+  margin-right: 5px;
+}
