@@ -1,11 +1,8 @@
-//
-
 // Post action types
 export const UPDATE_POST = 'UPDATE_POST';
 
-// TODO Put this into types maybe
 interface UpdatePostAction {
-  type: string;
+  type: typeof UPDATE_POST;
   payload: PostInterface;
 }
 
@@ -17,7 +14,6 @@ export interface CommentInterface {
   replies?: { userId: string; text: string }[];
 }
 
-// TODO Change Post to PostInterface and change all corresponding types
 export interface PostInterface {
   id?: number | string;
   title: string;
