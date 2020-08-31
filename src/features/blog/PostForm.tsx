@@ -13,6 +13,7 @@ import CustomSelect from '../../app/common/form/CustomSelect';
 import CustomTextArea from '../../app/common/form/CustomTextArea';
 import * as Yup from 'yup';
 
+// TODO Move this to some global place
 const tags: string[] = ['mod', 'guide', 'story', 'outfit', 'lot', 'challenges'];
 
 // TODO This is used in two places. Consider outsourcing it to some common place
