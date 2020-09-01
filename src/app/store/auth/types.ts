@@ -10,6 +10,8 @@ export interface AuthState {
 export interface UserLoginCredentialsInterface {
   email: string;
   password: string;
+  // This is added so that a formik error can be added
+  authError?: string;
 }
 
 // TODO Implement user interface

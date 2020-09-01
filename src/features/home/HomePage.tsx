@@ -3,7 +3,7 @@ import React from 'react';
 export default function HomePage() {
   return (
     <div style={{ margin: 'auto', width: '50%' }}>
-      <h1>Konstruktor Online Blog Task</h1>
+      <h1>Noelle blog</h1>
       <p>
         The purpose of this application is to demonstrate my understanding of React by developing a simple Blog
         application, with 3 entities:
@@ -40,6 +40,10 @@ export default function HomePage() {
           not event recommended by its developer. React-final-forms is the new library of the developer, however Formik
           is mentioned by the official react documentation as well. Popularity contest:{' '}
           <a href="https://reactjs.org/docs/forms.html">Form libraries comparison</a>
+        </li>
+        <li>
+          redux-thunk - To make it possible that action creator can return functions within which asyncronous operations
+          can be made
         </li>
       </ul>
     </div>
