@@ -4,11 +4,13 @@ import { useField } from 'formik';
 
 export interface CustomInputProps {
   name: string;
+  type?: string;
   label?: string;
   placeholder?: string;
 }
 // TODO Make sure that passing props.name to controlid will not cause any issues
-export default function CustomInput({ label, placeholder, ...props }: CustomInputProps) {
+// TODO Figure out the type for ... props, which should be the props that can be passed to the input element
+export default function CustomInput({ label, placeholder, type, ...props }: CustomInputProps) {
   const [field, meta] = useField(props);
   return (
     <Form.Group controlId={props.name}>
@@ -16,7 +18,8 @@ export default function CustomInput({ label, placeholder, ...props }: CustomInpu
       <Form.Control
         {...field}
         {...props}
-        type="text"
+        type={type}
+        autoComplete="off"
         placeholder={placeholder}
         isInvalid={meta.touched && !!meta.error}
       />
