@@ -46,6 +46,13 @@ export default function HomePage() {
           operations can be made
         </li>
       </ul>
+      <p>Where the application could be improved</p>
+      <ul>
+        <li>Guarding routes such as editing</li>
+        <li>Better error handling</li>
+        <li>Better handling of loading state</li>
+        <li>Better data-fetching in components</li>
+      </ul>
     </div>
   );
 }

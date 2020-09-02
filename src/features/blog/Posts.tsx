@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import PostPreview from './PostPreview';
+import PostSummary from './PostSummary';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/reducers/rootReducer';
 import { getFirestoreCollection, dataFromSnapshot } from '../../app/firestore/firestoreService';
@@ -40,7 +40,7 @@ export default function Posts() {
         <Col md={{ offset: 2, span: 8 }}>
           {posts &&
             posts.length > 0 &&
-            posts.map((post) => <PostPreview key={`post-preview-${post.id}`} post={post} />)}
+            posts.map((post) => <PostSummary key={`post-preview-${post.id}`} post={post} fullPostLink />)}
         </Col>
       </Row>
     </Container>

@@ -9,10 +9,11 @@ import { RootState } from '../../app/reducers/rootReducer';
 
 interface PostPreviewProps {
   post: PostInterface;
+  fullPostLink?: boolean;
 }
 
 // TODO Refactor this to PostSummary to be able to reuse it full post view
-export default function PostPreview({ post }: PostPreviewProps) {
+export default function PostPreview({ post, fullPostLink }: PostPreviewProps) {
   const { currentUser } = useSelector((state: RootState) => state.auth);
 
   const { title, postedBy, postedOn, imageURL, lead, tags, id, userId } = post;
@@ -46,7 +47,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
       <img className="img-fluid rounded" src={imageURL} alt={`Post preview ${id}`} />
       <hr />
       <p className="lead">{lead}</p>
-      <Link to={`/posts/${id}`}>Read more</Link>
+      {fullPostLink ? <Link to={`/posts/${id}`}>Read more</Link> : null}
     </>
   );
 }
