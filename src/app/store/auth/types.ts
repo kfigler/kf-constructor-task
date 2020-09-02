@@ -5,6 +5,7 @@ export const SIGN_OUT_USER = 'SIGN_OUT_USER';
 export interface AuthState {
   isAuthenticated: boolean;
   currentUser: string | null;
+  email: string | null;
 }
 
 export interface UserLoginCredentialsInterface {
@@ -14,14 +15,9 @@ export interface UserLoginCredentialsInterface {
   authError?: string;
 }
 
-// TODO Implement user interface
-// export interface UserInterface {
-//   email: string;
-// }
-
 export interface SignInUserAction {
   type: typeof SIGN_IN_USER;
-  payload: string;
+  payload: { currentUser: string; email: string };
 }
 
 export interface SignOutUserAction {

@@ -8,6 +8,7 @@ import Post from '../../features/blog/Post';
 import PostForm from '../../features/blog/PostForm';
 import ModalManager from '../common/modal/ModalManager';
 
+// Implement scroll restoration
 function App() {
   return (
     <>

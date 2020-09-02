@@ -3,7 +3,7 @@ import React from 'react';
 export default function HomePage() {
   return (
     <div style={{ margin: 'auto', width: '50%' }}>
-      <h1>Noelle blog</h1>
+      <h1>Konstruktor blog task</h1>
       <p>
         The purpose of this application is to demonstrate my understanding of React by developing a simple Blog
         application, with 3 entities:
@@ -16,8 +16,8 @@ export default function HomePage() {
       <p>
         Under Posts, a list of post previews is displayed. A full post view can be opened by clicking on "Read more".
         Posts can be edited, by either clicking on the Edit button in the post previews list or on the Edit button on
-        the full post screen. Post lead, content and tags are the editable parts of a post. The lead and content will be
-        validated against being empty. Tags can be empty.
+        the full post screen. The posts are only editable by the user who "created" them. Post lead, content and tags
+        are the editable parts of a post. The lead and content will be validated against being empty. Tags can be empty.
       </p>
       <p>
         By clicking Log In in the upper-right corner, a login screen (modal) appears, in which user credentials (email
@@ -42,8 +42,8 @@ export default function HomePage() {
           <a href="https://reactjs.org/docs/forms.html">Form libraries comparison</a>
         </li>
         <li>
-          redux-thunk - To make it possible that action creator can return functions within which asyncronous operations
-          can be made
+          redux-thunk - To make it possible that action creators can return functions within which asyncronous
+          operations can be made
         </li>
       </ul>
     </div>

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { RootState } from '../../app/reducers/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
-import { updatePost } from '../../app/store/posts/actions';
+import { updatePost, fetchPosts } from '../../app/store/posts/actions';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,6 +12,11 @@ import CustomInput from '../../app/common/form/CustomInput';
 import CustomSelect from '../../app/common/form/CustomSelect';
 import CustomTextArea from '../../app/common/form/CustomTextArea';
 import * as Yup from 'yup';
+import { updateDocInFirestore, getDocFromFirestore, dataFromSnapshot } from '../../app/firestore/firestoreService';
+import { PostInterface } from '../../app/store/posts/types';
+import { asyncActionStart, asyncActionFinish } from '../../app/store/async/actions';
+import Loader from '../../app/common/loading/Loader';
+import Error from '../../app/common/error/Error';
 
 // TODO Move this to some global place
 const tags: string[] = ['mod', 'guide', 'story', 'outfit', 'lot', 'challenges'];
@@ -20,19 +25,34 @@ const tags: string[] = ['mod', 'guide', 'story', 'outfit', 'lot', 'challenges'];
 type TParams = { id: string };
 
 export default function PostForm({ match, history }: RouteComponentProps<TParams>) {
-  const post = useSelector((state: RootState) => state.post.posts.find((post) => (post.id = match.params.id)));
+  const postId = match.params.id;
+  const post = useSelector((state: RootState) => state.post.posts.find((post) => post.id === match.params.id));
+  const { loading, error } = useSelector((state: RootState) => state.async);
   const dispatch = useDispatch();
 
-  const initialValues = post ?? {
+  // NOTE This could implemented as a reusable hook to work for more components
+  useEffect(() => {
+    dispatch(asyncActionStart());
+    getDocFromFirestore('posts', postId).then((doc) => {
+      if (doc.exists) {
+        dispatch(fetchPosts([dataFromSnapshot(doc)]));
+        dispatch(asyncActionFinish(null));
+      } else {
+        dispatch(asyncActionFinish('Post does not exist'));
+      }
+    });
+  }, [postId, dispatch]);
+
+  const initialValues: PostInterface = post ?? {
     id: '',
     title: '',
     postedBy: '',
-    postedOn: '',
+    postedOn: new Date(Date.now()),
     tags: [],
     imageURL: '',
     lead: '',
     content: '',
-    comments: [],
+    userId: '',
   };
 
   const PostSchema = Yup.object().shape({
@@ -40,11 +60,9 @@ export default function PostForm({ match, history }: RouteComponentProps<TParams
     content: Yup.string().required('Content is required'),
   });
 
-  function handleSubmit(values: { content: string; tags: string[] }) {
-    const updatedPost = { ...initialValues, ...values };
-    dispatch(updatePost(updatedPost));
-    history.push(`/posts/${initialValues.id}`);
-  }
+  if (loading || (!post && !error)) return <Loader />;
+  if (!post && error) return <Error error={error} redirectTo="/posts" />;
+  if (!post) return null;
 
   return (
     <Container>
@@ -54,14 +72,30 @@ export default function PostForm({ match, history }: RouteComponentProps<TParams
           <Formik
             initialValues={initialValues}
             validationSchema={PostSchema}
-            onSubmit={(values) => handleSubmit(values)}
+            onSubmit={async (values, { setSubmitting }) => {
+              try {
+                const updatedPost = { ...initialValues, ...values };
+                await updateDocInFirestore('posts', updatedPost);
+                dispatch(updatePost(updatedPost));
+                history.push(`/posts/${initialValues.id}`);
+              } catch (error) {
+                // NOTE TODO Better error handling should be implemented
+                console.log(error.code);
+              } finally {
+                setSubmitting(false);
+              }
+            }}
           >
-            <Form>
-              <CustomInput name="lead" label="Lead" placeholder="Type lead here..." />
-              <CustomTextArea name="content" label="Content" placeholder="Type content here..." rows={5} />
-              <CustomSelect name="tags" label="Tags" options={tags} multiple />
-              <Button type="submit">SUBMIT</Button>
-            </Form>
+            {({ isSubmitting }) => (
+              <Form>
+                <CustomInput name="lead" label="Lead" placeholder="Type lead here..." />
+                <CustomTextArea name="content" label="Content" placeholder="Type content here..." rows={5} />
+                <CustomSelect name="tags" label="Tags" options={tags} multiple />
+                <Button disabled={isSubmitting} type="submit">
+                  {isSubmitting ? 'Loading...' : 'Submit'}
+                </Button>
+              </Form>
+            )}
           </Formik>
         </Col>
       </Row>

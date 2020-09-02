@@ -1,12 +1,12 @@
 import { SIGN_IN_USER, SIGN_OUT_USER, UserLoginCredentialsInterface } from './types';
 import { AppThunk } from '../types';
-import firebase from '../../firestore/firestore';
+import firebase from '../../config/firebase';
 
 export function signInUser(credentials: UserLoginCredentialsInterface): AppThunk {
   return async function (dispatch) {
     try {
       const result = await firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password);
-      dispatch({ type: SIGN_IN_USER, payload: result.user?.email });
+      dispatch({ type: SIGN_IN_USER, payload: { currentUser: result.user?.uid, email: result.user?.email } });
     } catch (error) {
       throw error;
     }

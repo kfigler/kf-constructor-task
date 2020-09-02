@@ -3,6 +3,7 @@ import { AuthState, AuthActionTypes, SIGN_IN_USER, SIGN_OUT_USER } from '../stor
 const initialState: AuthState = {
   isAuthenticated: false,
   currentUser: null,
+  email: null,
 };
 
 export default function authReducer(state = initialState, action: AuthActionTypes): AuthState {
@@ -11,7 +12,8 @@ export default function authReducer(state = initialState, action: AuthActionType
       return {
         ...state,
         isAuthenticated: true,
-        currentUser: action.payload,
+        currentUser: action.payload.currentUser,
+        email: action.payload.email,
       };
     case SIGN_OUT_USER:
       return {

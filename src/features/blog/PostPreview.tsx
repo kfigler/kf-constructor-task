@@ -3,20 +3,29 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import { PostInterface } from '../../app/store/posts/types';
 import { Link } from 'react-router-dom';
+import { formatISODate } from '../../app/common/utils/formatISODate';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../app/reducers/rootReducer';
 
 interface PostPreviewProps {
   post: PostInterface;
 }
 
+// TODO Refactor this to PostSummary to be able to reuse it full post view
 export default function PostPreview({ post }: PostPreviewProps) {
-  const { title, postedBy, postedOn, imageURL, lead, tags, id } = post;
+  const { currentUser } = useSelector((state: RootState) => state.auth);
+
+  const { title, postedBy, postedOn, imageURL, lead, tags, id, userId } = post;
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center">
         <h1 className="mt-4">{title}</h1>
-        <Button as={Link} to={`/posts/edit/${id}`}>
-          EDIT
-        </Button>
+        {currentUser === userId ? (
+          <Button as={Link} to={`/posts/edit/${id}`}>
+            EDIT
+          </Button>
+        ) : null}
       </div>
       <p className="lead">
         by
@@ -24,7 +33,7 @@ export default function PostPreview({ post }: PostPreviewProps) {
       </p>
       <hr />
       <div className="d-flex justify-content-between align-items-top tag-container">
-        <p>{postedOn}</p>{' '}
+        <p>{formatISODate(postedOn)}</p>
         <p>
           {tags.map((tag, index) => (
             <Badge key={`${tag}-${index}`} variant="primary">

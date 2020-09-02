@@ -19,7 +19,7 @@ export default function AuthForm() {
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Please provide a valid email'),
-    password: Yup.string().required('Content is required'),
+    password: Yup.string().required('Password is required'),
   });
 
   return (

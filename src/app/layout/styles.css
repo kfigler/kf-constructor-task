@@ -9,3 +9,7 @@
 .navbar {
   height: 60px;
 }
+
+.fullheight-container {
+  height: 100vh;
+}

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { RootState } from '../../app/reducers/rootReducer';
 
 export default function SignedInUser() {
-  const { currentUser } = useSelector((state: RootState) => state.auth);
+  const { email } = useSelector((state: RootState) => state.auth);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ export default function SignedInUser() {
     <>
       <Dropdown id="dropdown-basic-button" title="Sign Out">
         <Dropdown.Toggle id="dropdown-basic">
-          <div style={{ display: 'inline-block' }}>{currentUser}</div>
+          <div style={{ display: 'inline-block' }}>{email}</div>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item onClick={handleClick} href="#">
