@@ -4,8 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PostSummary from './PostSummary';
-import Comment from './comments/Comment';
-import { CommentInterface } from '../../app/store/posts/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../app/reducers/rootReducer';
 import { getDocFromFirestore, dataFromSnapshot } from '../../app/firestore/firestoreService';
@@ -13,6 +11,7 @@ import { fetchPosts } from '../../app/store/posts/actions';
 import { asyncActionFinish, asyncActionStart } from '../../app/store/async/actions';
 import Loader from '../../app/common/loading/Loader';
 import Error from '../../app/common/error/Error';
+import Comments from './comments/Comments';
 
 type TParams = { id: string };
 
@@ -49,11 +48,7 @@ export default function Post({ match }: RouteComponentProps<TParams>) {
         <Col md={{ span: 8, offset: 2 }}>
           <PostSummary post={post} />
           <p>{content}</p>
-          {/* {comments &&
-            comments.length > 0 &&
-            comments.map((comment: CommentInterface, index: number) => (
-              <Comment key={`comment-${index}`} {...comment} />
-            ))} */}
+          <Comments postId={postId} />
         </Col>
       </Row>
     </Container>

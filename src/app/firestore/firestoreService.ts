@@ -36,3 +36,7 @@ export function getDocFromFirestore(collectionName: string, docId: string) {
 export function updateDocInFirestore(collectionName: string, doc: any) {
   return db.collection(collectionName).doc(doc.id).set(doc);
 }
+
+export function getPostChatRef(postId: string) {
+  return firebase.database().ref(`chat/${postId}`).orderByKey();
+}

@@ -16,19 +16,32 @@ export default function HomePage() {
       <p>
         Under Posts, a list of post previews is displayed. A full post view can be opened by clicking on "Read more".
         Posts can be edited, by either clicking on the Edit button in the post previews list or on the Edit button on
-        the full post screen. The posts are only editable by the user who "created" them. Post lead, content and tags
-        are the editable parts of a post. The lead and content will be validated against being empty. Tags can be empty.
+        the full post screen.
+        <br />
+        There are two logins (I would never use such passwords for a real-world application, they are for testing
+        purposes):
+      </p>
+      <ul>
+        <li>Email: konstruktor.user@gmail.com Password: secretpassword</li>
+        <li>Email: kalman.figler@gmail.com Password: qwe123qwe</li>
+      </ul>
+      <p>
+        One of the posts can be edited by logging in with my email account, the other can be edited by logging in the
+        other account (i.e.: by respective "authors"). Post lead, content and tags are the editable parts of a post. The
+        lead and content will be validated against being empty. Tags can be empty.
       </p>
       <p>
         By clicking Log In in the upper-right corner, a login screen (modal) appears, in which user credentials (email
         and password) should be entered.
       </p>
-      <p>Libraries</p>
+      <p>
+        <strong>Libraries</strong>
+      </p>
       <ul>
         <li>
           react-bootstrap - Reasoning behind choice: Some familiarity with bootstrap vanilla library, popularity contest
           vs other commonly used libs that I used:{' '}
-          <a href="https://www.npmtrends.com/react-bootstrap-vs-material-ui-vs-antd">NPM trends UI libs comparison</a>
+          <a href="https://www.npmtrends.com/react-bootstrap-vs-material-ui-vs-antd">UI libs comparison</a>
         </li>
         <li>react-router - I know it as the de facto library to handle routing in a React application</li>
         <li>
@@ -46,12 +59,15 @@ export default function HomePage() {
           operations can be made
         </li>
       </ul>
-      <p>Where the application could be improved</p>
+      <p>
+        <strong>Where the application could be improved</strong>
+      </p>
       <ul>
         <li>Guarding routes such as editing</li>
         <li>Better error handling</li>
         <li>Better handling of loading state</li>
         <li>Better data-fetching in components</li>
+        <li>Proper user names instead of emails</li>
       </ul>
     </div>
   );
