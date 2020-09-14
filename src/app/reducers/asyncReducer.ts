@@ -1,24 +1,22 @@
 import { AsyncState, AsyncActionTypes, ASYNC_ACTION_START, ASYNC_ACTION_FINISH } from '../store/async/types';
+import produce from 'immer';
 
 const initialState: AsyncState = {
   loading: false,
   error: null,
 };
 
-export default function asyncReducer(state = initialState, action: AsyncActionTypes) {
-  switch (action.type) {
-    case ASYNC_ACTION_START:
-      return {
-        ...state,
-        loading: true,
-      };
-    case ASYNC_ACTION_FINISH:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+const asyncReducer = (state = initialState, action: AsyncActionTypes): AsyncState =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case ASYNC_ACTION_START:
+        draft.loading = true;
+        return;
+      case ASYNC_ACTION_FINISH:
+        draft.loading = false;
+        draft.error = action.payload;
+        return;
+    }
+  });
+
+export default asyncReducer;

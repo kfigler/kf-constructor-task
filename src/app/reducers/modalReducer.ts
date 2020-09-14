@@ -1,25 +1,23 @@
 import { ModalState, ModalActions, OPEN_MODAL, CLOSE_MODAL } from '../store/modal/types';
+import produce from 'immer';
 
 const initialState: ModalState = {
   isOpen: false,
   type: null,
 };
 
-export default function modalReducer(state = initialState, action: ModalActions): ModalState {
-  switch (action.type) {
-    case OPEN_MODAL:
-      return {
-        ...state,
-        isOpen: true,
-        type: action.payload,
-      };
-    case CLOSE_MODAL:
-      return {
-        ...state,
-        isOpen: false,
-        type: null,
-      };
-    default:
-      return state;
-  }
-}
+export const modalReducer = (state = initialState, action: ModalActions): ModalState =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case OPEN_MODAL:
+        draft.isOpen = true;
+        draft.type = action.payload;
+        return;
+      case CLOSE_MODAL:
+        draft.isOpen = false;
+        draft.type = null;
+        return;
+    }
+  });
+
+export default modalReducer;

@@ -5,7 +5,6 @@ import Navigationbar from './Navigationbar';
 import SignedInUser from './SignedInUser';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { Store, AnyAction } from 'redux';
 import { BrowserRouter } from 'react-router-dom';
 import SignedOutUser from './SignedOutUser';
 
