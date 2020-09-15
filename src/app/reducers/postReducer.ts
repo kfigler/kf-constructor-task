@@ -13,7 +13,9 @@ const postReducer = (state = initialState, action: PostActionTypes): PostState =
         draft.posts = action.payload;
         return;
       case UPDATE_POST:
-        draft.posts.push(action.payload);
+        draft.posts.forEach((post, index) => {
+          if (post.id === action.payload.id) return (draft.posts[index] = action.payload);
+        });
         return;
       case SUBSCRIBE_TO_POST_COMMENTS:
         draft.comments = action.payload;

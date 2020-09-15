@@ -58,6 +58,9 @@ export default function HomePage() {
           redux-thunk - To make it possible that action creators can return functions within which asyncronous
           operations can be made
         </li>
+        <li>
+          immer - To handle state changes immutably. Seemed much less of an overhead to use compared to ImmutableJS
+        </li>
       </ul>
       <p>
         <strong>Where the application could be improved</strong>
