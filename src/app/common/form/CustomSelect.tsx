@@ -9,7 +9,6 @@ interface CustomSelectProps {
   multiple?: boolean;
 }
 
-// TODO Make sure that passing props.name to controlid will not cause any issues
 export default function CustomSelect({ label, options, ...props }: CustomSelectProps) {
   const [field] = useField(props);
   return (

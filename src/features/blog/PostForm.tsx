@@ -18,10 +18,8 @@ import { asyncActionStart, asyncActionFinish } from '../../app/store/async/actio
 import Loader from '../../app/common/loading/Loader';
 import Error from '../../app/common/error/Error';
 
-// TODO Move this to some global place
 const tags: string[] = ['mod', 'guide', 'story', 'outfit', 'lot', 'challenges'];
 
-// TODO This is used in two places. Consider outsourcing it to some common place
 type TParams = { id: string };
 
 export default function PostForm({ match, history }: RouteComponentProps<TParams>) {

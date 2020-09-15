@@ -12,7 +12,6 @@ interface PostPreviewProps {
   fullPostLink?: boolean;
 }
 
-// TODO Refactor this to PostSummary to be able to reuse it full post view
 export default function PostPreview({ post, fullPostLink }: PostPreviewProps) {
   const { currentUser } = useSelector((state: RootState) => state.auth);
 

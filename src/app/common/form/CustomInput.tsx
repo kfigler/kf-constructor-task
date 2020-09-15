@@ -8,8 +8,7 @@ export interface CustomInputProps {
   label?: string;
   placeholder?: string;
 }
-// TODO Make sure that passing props.name to controlid will not cause any issues
-// TODO Figure out the type for ... props, which should be the props that can be passed to the input element
+
 export default function CustomInput({ label, placeholder, type, ...props }: CustomInputProps) {
   const [field, meta] = useField(props);
   return (

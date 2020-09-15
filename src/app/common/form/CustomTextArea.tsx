@@ -7,8 +7,6 @@ interface CustomTextareaProps extends CustomInputProps {
   rows: number;
 }
 
-// TODO Make sure that passing props.name to controlid will not cause any issues
-// TODO This component should be able to accept any Form Control props, instead of explicitly passing rows
 export default function CustomTextArea({ label, placeholder, rows, ...props }: CustomTextareaProps) {
   const [field, meta] = useField(props);
   return (

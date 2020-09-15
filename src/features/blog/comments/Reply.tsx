@@ -5,7 +5,6 @@ interface ReplyProps {
   text: string;
 }
 
-// TODO delete this probably
 export default function Reply({ userId, text }: ReplyProps) {
   return (
     <div className={'media mt-4'}>

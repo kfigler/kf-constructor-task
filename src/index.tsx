@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import { configureStore } from './app/store/configureStore';
 
 const store = configureStore();
-// TODO Consider disabling strict mode, there is a deprecation warning because of a dependency ("findDOMNode is deprecated is strict mode");
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

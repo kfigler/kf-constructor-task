@@ -21,8 +21,6 @@ export default function Post({ match }: RouteComponentProps<TParams>) {
   const { loading, error } = useSelector((state: RootState) => state.async);
   const dispatch = useDispatch();
 
-  // TODO Bring in comments from firebase
-
   // NOTE This could implemented as a reusable hook to work for more components
   useEffect(() => {
     dispatch(asyncActionStart());
